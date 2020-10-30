@@ -36,6 +36,7 @@ namespace CVE.BasicLambda
         {
             var response = new APIGatewayProxyResponse();
 
+            response.Headers = new System.Collections.Generic.Dictionary<string, string>();
             response.Headers.Add("content-type", "application/json");
 
             if (request.HttpMethod == "POST")

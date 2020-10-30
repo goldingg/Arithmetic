@@ -43,8 +43,11 @@ namespace CVE.BasicLambda
             {
                 response.StatusCode = 200;
 
-                var expression = JsonSerializer.Deserialize<Expression>(request.Body);
-                if (expression == null)
+                var expression = JsonSerializer.Deserialize<Expression>(request.Body,
+                    new JsonSerializerOptions(){ PropertyNameCaseInsensitive = true });
+                if (expression == null
+                    || expression.Operator == null
+                )
                 {
                     response.Body = request.Body;
                     return response;

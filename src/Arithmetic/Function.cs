@@ -42,7 +42,15 @@ namespace CVE.BasicLambda
             if (request.HttpMethod == "POST")
             {
                 response.StatusCode = 200;
-                response.Body = ArithmeticExpressionHandler(JsonSerializer.Deserialize<Expression>(request.Body));
+
+                var expression = JsonSerializer.Deserialize<Expression>(request.Body);
+                if (expression == null)
+                {
+                    response.Body = request.Body;
+                    return response;
+                }
+
+                response.Body = ArithmeticExpressionHandler(expression);
             }
             else if (request.HttpMethod == "HEAD"
                 || request.HttpMethod == "GET"

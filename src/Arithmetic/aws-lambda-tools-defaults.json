@@ -12,5 +12,5 @@
   "function-runtime": "dotnetcore3.1",
   "function-memory-size": 128,
   "function-timeout": 10,
-  "function-handler": "Arithmetic::CVE.BasicLambda.Function::FunctionHandler"
+  "function-handler": "Arithmetic::CVE.BasicLambda.Function::ApiGatewayRestHandler"
 }

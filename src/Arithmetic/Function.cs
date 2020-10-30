@@ -32,7 +32,7 @@ namespace CVE.BasicLambda
         /// <param name="request"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public APIGatewayProxyResponse APIGatewayRestHandler(APIGatewayProxyRequest request, ILambdaContext context)
+        public APIGatewayProxyResponse ApiGatewayRestHandler(APIGatewayProxyRequest request, ILambdaContext context)
         {
             var response = new APIGatewayProxyResponse();
 
@@ -48,6 +48,7 @@ namespace CVE.BasicLambda
                 || request.HttpMethod == "PUT"
                 || request.HttpMethod == "PATCH"
                 || request.HttpMethod == "DELETE"
+                || request.HttpMethod == "OPTIONS"
             )
             {
                 response.StatusCode = 405;
@@ -65,6 +66,7 @@ namespace CVE.BasicLambda
                 response.Headers.Add("Allow", "POST");
                 response.Body = $@"{{
                     ""error"": ""The server does not know the HTTP method that was used."",
+                    ""httpMethod"": ""{request.HttpMethod}"",
                     ""allowedHttpMethods"": [""POST""]
                 }}";
             }

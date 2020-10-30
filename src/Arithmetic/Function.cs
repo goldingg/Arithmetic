@@ -99,7 +99,8 @@ namespace CVE.BasicLambda
                 {
                     Error = "The server encountered an error.",
                     ErrorType = exception.GetType().ToString(),
-                    Message = exception.Message
+                    Message = exception.Message,
+                    StackTrace = exception.StackTrace
                 };
 
                 resultJsonPayload = JsonSerializer.Serialize<Failure>(failure, serializerOptions);

@@ -5,5 +5,6 @@ namespace CVE.BasicLambda.Responses
 		public string Error { get; set; }
 		public string ErrorType { get; set; }
 		public string Message { get; set; }
+		public string StackTrace { get; set; }
 	}
 }

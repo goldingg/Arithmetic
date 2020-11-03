@@ -1,3 +1,5 @@
 src/Arithmetic/bin/**
 src/Arithmetic/obj/**
 src/Arithmetic/.AWSPackages/**
+**/*.suo
+**/*.dtbcache.v2

@@ -1,5 +1,12 @@
 src/Arithmetic/bin/**
 src/Arithmetic/obj/**
+src/ArithmeticMobile/ArithmeticMobile/bin/**
+src/ArithmeticMobile/ArithmeticMobile/obj/**
+src/ArithmeticMobile/ArithmeticMobile.Android/bin/**
+src/ArithmeticMobile/ArithmeticMobile.Android/obj/**
+src/ArithmeticMobile/ArithmeticMobile.iOS/bin/**
+src/ArithmeticMobile/ArithmeticMobile.iOS/obj/**
 src/Arithmetic/.AWSPackages/**
 **/*.suo
 **/*.dtbcache.v2
+*.user

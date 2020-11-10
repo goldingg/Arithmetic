@@ -14,6 +14,7 @@
         </Picker>
         <Entry Keyboard="Numeric" Placeholder="First Number"/>
         <Button Text="Calculate" Clicked="Button_Clicked" />
+        <Label Text="Result ="> </Label>
     </StackLayout>
 
 </ContentPage>

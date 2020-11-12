@@ -5,6 +5,7 @@ using Amazon.Lambda.Core;
 using Amazon.Lambda.APIGatewayEvents;
 
 using CVE.BasicLambda.Arithmetic;
+using CVE.BasicLambda.Models;
 using CVE.BasicLambda.Responses;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -41,8 +42,6 @@ namespace CVE.BasicLambda
 
             if (request.HttpMethod == "POST")
             {
-                response.StatusCode = 200;
-
                 var expression = JsonSerializer.Deserialize<Expression>(request.Body,
                     new JsonSerializerOptions(){ PropertyNameCaseInsensitive = true });
                 if (expression == null
@@ -53,7 +52,18 @@ namespace CVE.BasicLambda
                     return response;
                 }
 
-                response.Body = ArithmeticExpressionHandler(expression);
+                var expressionResult = ArithmeticExpressionHandler(expression);
+                try
+                {
+                    SaveRequest(expression, expressionResult);
+                    response.StatusCode = 200;
+                }
+                catch (System.Exception)
+                {
+                    response.StatusCode = 500;
+                }
+
+                response.Body = expressionResult;
             }
             else if (request.HttpMethod == "HEAD"
                 || request.HttpMethod == "GET"
@@ -110,6 +120,50 @@ namespace CVE.BasicLambda
             }
 
             return resultJsonPayload ?? "\"Something went wrong.\"";
+        }
+
+        private void SaveRequest(Expression expression, string result)
+        {
+            Success success;
+            try
+            {
+                success = JsonSerializer.Deserialize<Success>(result, new JsonSerializerOptions(){ PropertyNameCaseInsensitive = true });
+            }
+            catch (System.Exception)
+            {
+                return;
+            }
+            
+            char? selectedOperator;
+            switch (expression.Operator.ToUpper())
+            {
+                case "ADD":
+                    selectedOperator = '+';
+                    break;
+                case "SUBTRACT":
+                    selectedOperator = '-';
+                    break;
+                case "MULTIPLY":
+                    selectedOperator = '*';
+                    break;
+                case "DIVIDE":
+                    selectedOperator = '/';
+                    break;
+                default:
+                    selectedOperator = null;
+                    break;
+            }
+
+            var arithmeticExpression = new ArithmeticExpression()
+            {
+                LeftOperand = expression.LeftOperand,
+                RightOperand = expression.RightOperand,
+                Operator = selectedOperator,
+                Result = success.Result
+            };
+            using var db = new ArithmeticContext();
+            db.ArithmeticExpression.Add(arithmeticExpression);
+            db.SaveChanges();
         }
     }
 }

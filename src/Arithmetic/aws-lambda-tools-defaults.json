@@ -11,6 +11,6 @@
   "framework": "netcoreapp3.1",
   "function-runtime": "dotnetcore3.1",
   "function-memory-size": 128,
-  "function-timeout": 10,
+  "function-timeout": 45,
   "function-handler": "Arithmetic::CVE.BasicLambda.Function::ApiGatewayRestHandler"
 }

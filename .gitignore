@@ -1,3 +1,4 @@
+test/Arithmetic.Tests/obj/**
 src/Arithmetic/bin/**
 src/Arithmetic/obj/**
 src/ArithmeticMobile/ArithmeticMobile/bin/**
@@ -10,3 +11,5 @@ src/Arithmetic/.AWSPackages/**
 **/*.suo
 **/*.dtbcache.v2
 *.user
+.vs/**
+
